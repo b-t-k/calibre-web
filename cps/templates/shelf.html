@@ -42,6 +42,15 @@
               <a class="author-name" href="{{url_for('web.books_list',  data='author', sort='new', book_id=author.id) }}">{{author.name.replace('|',',')|shortentitle(30)}}</a>
             {% endif %}
           {% endfor %}
+{% if entry.series|length > 0 %}
+  <p class="series">
+      {{_('Book')}} {{entry.series_index}} {{_('of')}} <a href="{{url_for('web.books_list', data='series',sort='abc', book_id=entry.series[0].id)}}">{{entry.series[0].name}}</a>
+    </p>
+{% endif %}
+
+{% if entry.pubdate[:10] != '0101-01-01' %}
+    <p class="publishing-date">{{entry.pubdate|formatdate}} </p>
+{% endif %}
         </p>
         {% if entry.ratings.__len__() > 0 %}
         <div class="rating">
